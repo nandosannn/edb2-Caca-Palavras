@@ -1,89 +1,45 @@
-#include <stdio.h>
-#include <stdlib.h> 
-#include <string.h>
-#include "../include/util.h"
+#include "../include/jogo.h"
+#include <ctype.h>
 
-void heap_maxima(Aeronave* heap, int capacidade, int indice)
-{
-    if (heap == NULL)
-    {
-        return;
-    }
+void ler_palavras(No *raiz, char *nomeDoArquivo){
+    FILE* arquivo = abrirArquivo(nomeDoArquivo, "r");
 
-    int maior = indice;
-    int esquerda = 2 * indice + 1;
-    int direita = 2 * indice + 2;
-
-    if (esquerda < capacidade && heap[esquerda].prioridade > heap[maior].prioridade)
-    {
-        maior = esquerda;
-    }
-
-    if (direita < capacidade && heap[direita].prioridade > heap[maior].prioridade)
-    {
-        maior = direita;
-    }
-
-    if (maior != indice)
-    {
-        Aeronave aux = heap[indice];
-        heap[indice] = heap[maior];
-        heap[maior] = aux;
-
-        heap_maxima(heap, capacidade, maior); 
+    if(arquivo){
+        char palavra[50];
+        while(fscanf(arquivo, "%s", palavra) == 1) inserir(raiz, palavra);
     }
 }
 
-void construir_heap_maxima(Frota* frota){
-    if (frota->aeronave == NULL)
-    {
-        return;
+void ler_tabuleiro(char *nomeDoArquivo, int linhas, int colunas, char **matriz){
+    FILE* arquivo = abrirArquivo(nomeDoArquivo, "r");
+
+    if(arquivo){
+        char letra;
+        int contadorLinha = 0;
+        int contadorColuna = 0;
+
+        while(fscanf(arquivo, "%c", &letra) == 1){
+            if(!isspace(letra) && !isdigit(letra)){
+                matriz[contadorLinha][contadorColuna] = letra;
+                contadorColuna++;
+
+                if(contadorColuna == colunas){
+                    contadorColuna = 0;
+                    contadorLinha++;
+                }
+
+                if(contadorLinha == linhas){
+                    break;
+                }
+            } 
+        }
     }
 
-    for (int i = frota->capacidade/2 - 1; i >= 0; i--)
-    {
-        heap_maxima(frota->aeronave, frota->capacidade, i);
-    }
+    /*for(int i = 0; i < linhas; i++){
+        for(int j = 0; j < colunas; j++){
+            printf("%c", matriz[i][j]);
+            printf(" ");
+        }
+        printf("\n");
+    }*/
 }
-
-void ordenar_heap(Frota* frota) {
-    construir_heap_maxima(frota);
-
-    for (int i = frota->capacidade - 1; i > 0; i--) {
-
-        Aeronave aux = frota->aeronave[0];
-        frota->aeronave[0] = frota->aeronave[i];
-        frota->aeronave[i] = aux;
-
-    
-        heap_maxima(frota->aeronave, i, 0);
-    }
-}
-
-void inserir_na_heap(Frota* frota, Aeronave aeronave){
-    
-    aumentar_frota(frota);
-
-    frota->aeronave[frota->capacidade - 1] = aeronave;
-
-    construir_heap_maxima(frota);
-}
-
-void remover_maior_prioridade(Frota** frota){
-    diminuir_frota(*frota);
-
-    construir_heap_maxima(*frota);
-}
-
-void atualizarPrioridade(Frota* frota){
-    frota->aeronave->prioridade = calculador_de_prioridade(*frota->aeronave);
-    construir_heap_maxima(frota);
-}
-
-Aeronave consultar_maior_prioridade(Frota frota){
-    return frota.aeronave[frota.capacidade - 1];
-}
-
-
-
-
