@@ -1,24 +1,26 @@
 #include <stdio.h>
-#include <locale.h>
-#include "../include/util.h"
+#include "../include/jogo.h"
 
 int main(){
-    char* nome_arquivo = "data/voos.csv";
-    Frota* frota = iniciar_frota();
-    carregar_frota(nome_arquivo, frota);
-    ordenar_heap(frota);
+    char *nomeDoArquivoPalavras = "data/palavras.txt";
+    char * nomeDoArquivoTabuleiro = "data/tabuleiro.txt";
+    /*No *raiz = criar_no();
+
+    const char *palavras[] = {"ganimedes", "calisto", "io", "metis", "adrasteia", "ananke", "carme", "pheme", "europa", "himalia", "elara", "pasifae", "sinope", "leda", "agape"}; 
+
+    ler_palavras(raiz, nomeDoArquivoPalavras);
+
+    for(int i = 0; i < 15; i++){
+        if(buscar(raiz, palavras[i])) printf("Palavra %s encontrada!\n", palavras[i]);
+        else printf("Palavra %s não encontrada!\n", palavras[i]);
+    }*/
+
+    int indices_matriz[2];
+    char **matriz;
+
+    lerTamanhoDoTabuleiro(nomeDoArquivoTabuleiro, indices_matriz);
+    alocarMatrizTabuleiro(&matriz, indices_matriz[0], indices_matriz[1]);
+    ler_tabuleiro(nomeDoArquivoTabuleiro, indices_matriz[0], indices_matriz[1], matriz);
     
-    int entrada;
-
-    do{
-        menu();
-        entrada = leitor_de_numeros();
-
-        menuOperacoes(entrada, nome_arquivo, frota);
-    } while (entrada != 6);
-
-    reiniciar_arquivo(nome_arquivo);
-    salvar_frota(nome_arquivo, *frota);
-    liberar_frota(frota);
     return 0;
 }
