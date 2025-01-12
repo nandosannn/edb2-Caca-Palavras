@@ -2,7 +2,7 @@ CC = gcc
 CFLAGS = -Iinclude -Wall -Wextra -std=c11
 SRC = $(wildcard src/*.c)
 OBJ = $(SRC:src/%.c=build/src/%.o)
-TARGET = controleAerio
+TARGET = cacaPalavra
 
 all: $(TARGET)
 

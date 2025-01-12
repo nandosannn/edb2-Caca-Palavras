@@ -18,7 +18,7 @@ void alocarMatrizTabuleiro(char ***matriz, int linhas, int colunas){
     }
 }
 
-int lerTamanhoDoTabuleiro(char *nomeDoArquivo, int indices_matriz[]){
+void lerTamanhoDoTabuleiro(char *nomeDoArquivo, int indices_matriz[]){
     FILE *arquivo = abrirArquivo(nomeDoArquivo, "r");
 
     if(arquivo){
