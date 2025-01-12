@@ -28,18 +28,19 @@ void inserir(No *raiz, const char *palavra){
     atual->fim_da_palavra = true;
 }
 
-bool buscar(No *raiz, const char *palavra){
+int buscar(No *raiz, const char *palavra){
     No *atual = raiz;
 
     for(int i = 0; palavra[i] != '\0'; i++){
         int indice = palavra[i] - 'a';
 
-        if(atual->filhos[indice] == NULL) return false;
+        if(atual->filhos[indice] == NULL) return -1;
 
         atual = atual->filhos[indice];
     }
 
-    return atual->fim_da_palavra;
+    if(atual->fim_da_palavra) return 1;
+    else return 0;
 }
 
 void liberar_trie(No *raiz){
