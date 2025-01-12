@@ -2,12 +2,12 @@
 
 #define NUMERO_DE_LETRAS 26
 
-typedef struct No{
-  struct No *filhos[NUMERO_DE_LETRAS];
+typedef struct No_trie{
+  struct No_trie *filhos[NUMERO_DE_LETRAS];
   bool fim_da_palavra;
-}No;
+}No_trie;
 
-No *criar_no();
-void inserir(No *raiz, const char *palavra);
-int buscar(No *raiz, const char *palavra);
-void liberar_trie(No *raiz);
+No_trie *criar_no();
+void inserir_trie(No_trie *raiz, const char *palavra);
+int buscar_trie(No_trie *raiz, const char *palavra);
+void liberar_trie(No_trie *raiz);

@@ -3,8 +3,8 @@
 #include "../include/trie.h"
 #include "../include/util.h"
 
-No *criar_no(){
-    No *novo_no = (No *)malloc(sizeof(No));
+No_trie *criar_no(){
+    No_trie *novo_no = (No_trie *)malloc(sizeof(No_trie));
 
     if(novo_no){
         novo_no->fim_da_palavra = false;
@@ -14,8 +14,8 @@ No *criar_no(){
     return novo_no;
 }
 
-void inserir(No *raiz, const char *palavra){
-    No *atual = raiz;
+void inserir_trie(No_trie *raiz, const char *palavra){
+    No_trie *atual = raiz;
 
     for(int i = 0; palavra[i] != '\0'; i++){
         int indice = palavra[i] - 'a';
@@ -28,8 +28,8 @@ void inserir(No *raiz, const char *palavra){
     atual->fim_da_palavra = true;
 }
 
-int buscar(No *raiz, const char *palavra){
-    No *atual = raiz;
+int buscar_trie(No_trie *raiz, const char *palavra){
+    No_trie *atual = raiz;
 
     for(int i = 0; palavra[i] != '\0'; i++){
         int indice = palavra[i] - 'a';
@@ -43,7 +43,7 @@ int buscar(No *raiz, const char *palavra){
     else return 0;
 }
 
-void liberar_trie(No *raiz){
+void liberar_trie(No_trie *raiz){
     if(raiz == NULL) return;
 
     for(int i = 0; i < NUMERO_DE_LETRAS; i++) liberar_trie(raiz->filhos[i]);
