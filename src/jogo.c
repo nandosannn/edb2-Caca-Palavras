@@ -20,7 +20,7 @@ void ler_tabuleiro(char *nomeDoArquivo, int linhas, int colunas, char **matriz){
 
         while(fscanf(arquivo, "%c", &letra) == 1){
             if(!isspace(letra) && !isdigit(letra)){
-                matriz[contadorLinha][contadorColuna] = letra;
+                matriz[contadorLinha][contadorColuna] = tolower(letra);
                 contadorColuna++;
 
                 if(contadorColuna == colunas){
@@ -44,18 +44,47 @@ void ler_tabuleiro(char *nomeDoArquivo, int linhas, int colunas, char **matriz){
     }
 }
 
-void busca_horizontal(char** matriz, int linha, int coluna, No* arvore_avl, No_trie* arvore_trie){
+void busca_horizontal(char** matriz, int linha, int coluna, No_trie* arvore_trie, No* arvore_avl){
+    char vetor[50];
     int k = 0;
-    int linhas_aux = 0;
-    int colunas_aux = 0;
+    int coluna_aux = 0;
 
-    for (int i = linhas_aux; i < linha; i++)
+    for (int i = 0; i < linha; i++)
     {
-        for (int j = 0; j < coluna; j++)
-        {
-            char string[k+1];
-            strcpy(string[k], matriz[i][j]);
-            k++;
+        while (coluna_aux != coluna){
+           
+
+            for (int j = coluna_aux; j < coluna; j++)
+            {
+                vetor[k++] = matriz[i][j];
+                vetor[k] = '\0';
+                printf("palavra: %s \n", vetor);
+                int valor = buscar_trie(arvore_trie, vetor);
+                //printf("valor do resultado: %d \n", valor);
+
+                if (valor == 1)
+                {
+                    arvore_avl = inserir_no_avl(arvore_avl, vetor);
+                    printf("%s inserido na arvore", vetor);
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            coluna_aux++;
+            //printf("valor coluna_aux: %d\n",coluna_aux);
         }
+
+        coluna_aux=0;
+        k=0;
+        vetor[k]='\0';
     } 
+
+    // for (int i = 0; i < linha; i++)
+    // {
+    //     printf("%c ", vetor[i]);
+    // }
+    
 }

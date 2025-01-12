@@ -20,9 +20,10 @@ No* rotacao_direita(No* y);
 
 No* rotacao_esquerda(No* x);
 
-No* inserir_no_avl(No* no, const char* dado);
+No* inserir_no_avl(No* no, char* dado);
 
 void imprimir_em_ordem(No* raiz);
 
+void liberar_avl(No* avl);
 
 

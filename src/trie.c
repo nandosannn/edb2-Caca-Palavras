@@ -3,7 +3,7 @@
 #include "../include/trie.h"
 #include "../include/util.h"
 
-No_trie *criar_no(){
+No_trie *criar_no_trie(){
     No_trie *novo_no = (No_trie *)malloc(sizeof(No_trie));
 
     if(novo_no){
@@ -20,7 +20,7 @@ void inserir_trie(No_trie *raiz, const char *palavra){
     for(int i = 0; palavra[i] != '\0'; i++){
         int indice = palavra[i] - 'a';
 
-        if(atual->filhos[indice] == NULL) atual->filhos[indice] = criar_no();
+        if(atual->filhos[indice] == NULL) atual->filhos[indice] = criar_no_trie();
 
         atual = atual->filhos[indice];
     }

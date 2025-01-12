@@ -77,7 +77,7 @@ No* rotacao_esquerda(No* x) {
     return y;
 }
 
-No* inserir_no_avl(No* no, const char* dado) {
+No* inserir_no_avl(No* no, char* dado) {
     if (no == NULL)
         return criar_no_avl(dado);
 
@@ -132,4 +132,17 @@ void imprimir_em_ordem(No* raiz) {
         printf("%s\n", raiz->dado);
         imprimir_em_ordem(raiz->direito);
     }
+}
+
+void liberar_avl(No* avl){
+    if (avl ==NULL)
+    {
+        return;
+    }
+
+    liberar_avl(avl->esquerdo);
+    liberar_avl(avl->direito);
+    free(avl->dado);
+    free(avl);
+    
 }

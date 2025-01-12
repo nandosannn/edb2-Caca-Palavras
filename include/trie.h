@@ -7,7 +7,7 @@ typedef struct No_trie{
   bool fim_da_palavra;
 }No_trie;
 
-No_trie *criar_no();
+No_trie *criar_no_trie();
 void inserir_trie(No_trie *raiz, const char *palavra);
 int buscar_trie(No_trie *raiz, const char *palavra);
 void liberar_trie(No_trie *raiz);
