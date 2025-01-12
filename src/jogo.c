@@ -53,26 +53,30 @@ void busca_horizontal(char** matriz, int linha, int coluna, No_trie* arvore_trie
     {
         while (coluna_aux != coluna){
            
-
+            //printf("valor coluna_aux: %d\n", coluna_aux);
             for (int j = coluna_aux; j < coluna; j++)
             {
                 vetor[k++] = matriz[i][j];
                 vetor[k] = '\0';
-                printf("palavra: %s \n", vetor);
+                //printf("palavra: %s \n", vetor);
                 int valor = buscar_trie(arvore_trie, vetor);
                 //printf("valor do resultado: %d \n", valor);
 
                 if (valor == 1)
                 {
                     arvore_avl = inserir_no_avl(arvore_avl, vetor);
-                    printf("%s inserido na arvore", vetor);
+                    printf("%s inserido na arvore\n", vetor);
+                    break;
                 }
-                else
-                {
+                else if(valor == -1){
+                    //printf("entrou aqui\n");
                     break;
                 }
             }
 
+            //printf("chegou aqui!\n");
+            k=0;
+            vetor[k]='\0';
             coluna_aux++;
             //printf("valor coluna_aux: %d\n",coluna_aux);
         }
@@ -82,9 +86,47 @@ void busca_horizontal(char** matriz, int linha, int coluna, No_trie* arvore_trie
         vetor[k]='\0';
     } 
 
-    // for (int i = 0; i < linha; i++)
-    // {
-    //     printf("%c ", vetor[i]);
-    // }
+    imprimir_em_ordem(arvore_avl);
+
+    coluna_aux = coluna-1;
+    k = 0;
+
+
+    for (int i = 0; i < linha; i++)
+    {
+        while (coluna_aux >= 0){
+           
+            //printf("valor coluna_aux: %d\n", coluna_aux);
+            for (int j = coluna_aux; j >= 0; j--)
+            {
+                vetor[k++] = matriz[i][j];
+                vetor[k] = '\0';
+                //printf("palavra: %s \n", vetor);
+                int valor = buscar_trie(arvore_trie, vetor);
+                //printf("valor do resultado: %d \n", valor);
+
+                if (valor == 1)
+                {
+                    arvore_avl = inserir_no_avl(arvore_avl, vetor);
+                    printf("%s inserido na arvore\n", vetor);
+                    break;
+                }
+                else if(valor == -1){
+                    //printf("entrou aqui\n");
+                    break;
+                }
+            }
+
+            //printf("chegou aqui!\n");
+            k=0;
+            vetor[k]='\0';
+            coluna_aux--;
+            //printf("valor coluna_aux: %d\n",coluna_aux);
+        }
+
+        coluna_aux=coluna-1;
+        k=0;
+        vetor[k]='\0';
+    } 
     
 }

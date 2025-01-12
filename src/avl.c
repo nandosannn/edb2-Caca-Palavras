@@ -26,7 +26,15 @@ No* criar_no_avl(char* dado) {
         printf("Erro na alocação de memória!\n");
         return NULL;
     }
-    no->dado = dado;
+
+    no->dado = (char*)malloc(strlen(dado) + 1);
+    if (no->dado == NULL) {
+        printf("Erro na alocação de memória para a string!\n");
+        free(no);
+        return NULL;
+    }
+
+    strcpy(no->dado, dado);
     no->esquerdo = NULL;
     no->direito = NULL;
     no->altura = 0;
