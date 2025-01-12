@@ -44,18 +44,18 @@ void ler_tabuleiro(char *nomeDoArquivo, int linhas, int colunas, char **matriz){
     }
 }
 
-// void busca_horizontal(char** matriz, int linha, int coluna, No* arvore_avl, No_trie* arvore_trie){
-//     char k = 0;
-//     char* string[k];
-//     int linhas_aux = 0;
-//     int colunas_aux = 0;
+void busca_horizontal(char** matriz, int linha, int coluna, No* arvore_avl, No_trie* arvore_trie){
+    int k = 0;
+    int linhas_aux = 0;
+    int colunas_aux = 0;
 
-//     for (int i = linhas_aux; i < linha; i++)
-//     {
-//         for (int j = 0; j < coluna; j++)
-//         {
-//             string[k]=matriz[i][j];
-//             k++;
-//         }
-//     } 
-// }
+    for (int i = linhas_aux; i < linha; i++)
+    {
+        for (int j = 0; j < coluna; j++)
+        {
+            char string[k+1];
+            strcpy(string[k], matriz[i][j]);
+            k++;
+        }
+    } 
+}
