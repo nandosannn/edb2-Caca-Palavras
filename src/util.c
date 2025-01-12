@@ -33,6 +33,5 @@ int lerTamanhoDoTabuleiro(char *nomeDoArquivo, int indices_matriz[]){
                 break;
             }
         } 
-
     }
 }
