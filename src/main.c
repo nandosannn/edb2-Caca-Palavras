@@ -22,7 +22,9 @@ int main(){
     alocarMatrizTabuleiro(&matriz, indices_matriz[0], indices_matriz[1]);
     ler_tabuleiro(nomeDoArquivoTabuleiro, indices_matriz[0], indices_matriz[1], matriz);
 
-    busca_horizontal(matriz, indices_matriz[0], indices_matriz[1], raiz, raiz_avl);
+    busca_horizontal(matriz, indices_matriz[0], indices_matriz[1], raiz, &raiz_avl);
+    busca_vertical(matriz, indices_matriz[0], indices_matriz[1], raiz, &raiz_avl);
+    imprimir_em_ordem(raiz_avl);
 
     //Liberar memória
     for (int i = 0; i < indices_matriz[0]; i++) {

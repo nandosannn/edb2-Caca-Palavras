@@ -44,7 +44,7 @@ void ler_tabuleiro(char *nomeDoArquivo, int linhas, int colunas, char **matriz){
     }
 }
 
-void busca_horizontal(char** matriz, int linha, int coluna, No_trie* arvore_trie, No* arvore_avl){
+void busca_horizontal(char** matriz, int linha, int coluna, No_trie* arvore_trie, No** arvore_avl){
     char vetor[50];
     int k = 0;
     int coluna_aux = 0;
@@ -64,7 +64,7 @@ void busca_horizontal(char** matriz, int linha, int coluna, No_trie* arvore_trie
 
                 if (valor == 1)
                 {
-                    arvore_avl = inserir_no_avl(arvore_avl, vetor);
+                    *arvore_avl = inserir_no_avl(*arvore_avl, vetor);
                     printf("%s inserido na arvore\n", vetor);
                     break;
                 }
@@ -86,11 +86,10 @@ void busca_horizontal(char** matriz, int linha, int coluna, No_trie* arvore_trie
         vetor[k]='\0';
     } 
 
-    imprimir_em_ordem(arvore_avl);
+    //imprimir_em_ordem(*arvore_avl);
 
     coluna_aux = coluna-1;
     k = 0;
-
 
     for (int i = 0; i < linha; i++)
     {
@@ -107,7 +106,7 @@ void busca_horizontal(char** matriz, int linha, int coluna, No_trie* arvore_trie
 
                 if (valor == 1)
                 {
-                    arvore_avl = inserir_no_avl(arvore_avl, vetor);
+                    *arvore_avl = inserir_no_avl(*arvore_avl, vetor);
                     printf("%s inserido na arvore\n", vetor);
                     break;
                 }
@@ -128,5 +127,83 @@ void busca_horizontal(char** matriz, int linha, int coluna, No_trie* arvore_trie
         k=0;
         vetor[k]='\0';
     } 
-    
+}
+
+void busca_vertical(char** matriz, int linha, int coluna, No_trie* arvore_trie, No** arvore_avl){
+    char vetor[50];
+    int k = 0;
+    int linha_aux = 0;
+
+    for (int i = 0; i < coluna; i++)
+    {
+        while (linha_aux < linha)
+        {
+            for (int j = linha_aux; j < linha; j++)
+            {
+                vetor[k++] = matriz[j][i];
+                vetor[k] = '\0';
+                // printf("palavra: %s \n", vetor);
+                int valor = buscar_trie(arvore_trie, vetor);
+                // printf("valor do resultado: %d \n", valor);
+            
+                if (valor == 1)
+                {
+                    *arvore_avl = inserir_no_avl(*arvore_avl, vetor);
+                    printf("%s inserido na arvore\n", vetor);
+                    break;
+                }
+                else if (valor == -1)
+                {
+                    // printf("entrou aqui\n");
+                    break;
+                }
+            }
+
+            k = 0;
+            vetor[k] = '\0';
+            linha_aux++;
+        }
+
+        k = 0;
+        vetor[k] = '\0';
+        linha_aux=0;
+    }
+
+    k = 0;
+    linha_aux = linha-1;
+
+    for (int i = 0; i < coluna; i++)
+    {
+        while (linha_aux >= 0)
+        {
+            for (int j = linha_aux; j>=0; j--)
+            {
+                vetor[k++] = matriz[j][i];
+                vetor[k] = '\0';
+                // printf("palavra: %s \n", vetor);
+                int valor = buscar_trie(arvore_trie, vetor);
+                // printf("valor do resultado: %d \n", valor);
+            
+                if (valor == 1)
+                {
+                    *arvore_avl = inserir_no_avl(*arvore_avl, vetor);
+                    printf("%s inserido na arvore\n", vetor);
+                    break;
+                }
+                else if (valor == -1)
+                {
+                    // printf("entrou aqui\n");
+                    break;
+                }
+            }
+
+            k = 0;
+            vetor[k] = '\0';
+            linha_aux--;
+        }
+
+        k = 0;
+        vetor[k] = '\0';
+        linha_aux=linha-1;
+    }
 }
