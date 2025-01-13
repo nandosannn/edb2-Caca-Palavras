@@ -44,47 +44,36 @@ void ler_tabuleiro(char *nomeDoArquivo, int linhas, int colunas, char **matriz){
     }
 }
 
-void busca_horizontal(char** matriz, int linha, int coluna, No_trie* arvore_trie, No* arvore_avl){
-    char vetor[50];
-    int k = 0;
-    int coluna_aux = 0;
+void busca_horizontal(char** matriz, int linha, int coluna, No_trie* arvore_trie, No** arvore_avl){
+    char palavra[50];
+    int posicao_de_insercao_do_caractere = 0;
+    int posicao_inicial_palavra = 0;
 
     for (int i = 0; i < linha; i++)
     {
-        while (coluna_aux != coluna){
+        while (posicao_inicial_palavra < coluna){
            
-
-            for (int j = coluna_aux; j < coluna; j++)
+            for (int j = posicao_inicial_palavra; j < coluna; j++)
             {
-                vetor[k++] = matriz[i][j];
-                vetor[k] = '\0';
-                printf("palavra: %s \n", vetor);
-                int valor = buscar_trie(arvore_trie, vetor);
-                //printf("valor do resultado: %d \n", valor);
+                palavra[posicao_de_insercao_do_caractere++] = matriz[i][j];
+                palavra[posicao_de_insercao_do_caractere] = '\0';
+                int valor = buscar_trie(arvore_trie, palavra);
 
-                if (valor == 1)
+                if(valor == 1)
                 {
-                    arvore_avl = inserir_no_avl(arvore_avl, vetor);
-                    printf("%s inserido na arvore", vetor);
-                }
-                else
+                    *arvore_avl = inserir_no_avl(*arvore_avl, palavra);
+                    j = coluna;
+                }else if(valor == -1)
                 {
-                    break;
+                    j = coluna;
                 }
             }
 
-            coluna_aux++;
-            //printf("valor coluna_aux: %d\n",coluna_aux);
+            palavra[0] = '\0';
+            posicao_de_insercao_do_caractere = 0;
+            posicao_inicial_palavra++;
         }
 
-        coluna_aux=0;
-        k=0;
-        vetor[k]='\0';
+        posicao_inicial_palavra = 0;
     } 
-
-    // for (int i = 0; i < linha; i++)
-    // {
-    //     printf("%c ", vetor[i]);
-    // }
-    
 }
