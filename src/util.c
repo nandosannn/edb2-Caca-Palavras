@@ -35,3 +35,13 @@ void lerTamanhoDoTabuleiro(char *nomeDoArquivo, int indices_matriz[]){
         } 
     }
 }
+
+void imprimirMatriz(char **matriz, int linhas, int colunas){
+    for(int i = 0; i < linhas; i++){
+        for(int j = 0; j < colunas; j++){
+            printf("%c", matriz[i][j]);
+            printf(" ");
+        }
+        printf("\n");
+    }
+}

@@ -2,7 +2,6 @@
 #include "../include/avl.h"
 #include "../include/util.h"
 
-
 int obter_altura(No* no) {
     if (no == NULL) {
         return -1;
@@ -30,6 +29,7 @@ No* criar_no_avl(char* dado) {
     no->dado = (char*)malloc(strlen(dado) + 1);
     if (no->dado == NULL) {
         printf("Erro na alocação de memória para a string!\n");
+
         free(no);
         return NULL;
     }
@@ -135,7 +135,7 @@ No* inserir_no_avl(No* no, char* dado) {
 }
 
 void imprimir_em_ordem(No* raiz) {
-    if (raiz != NULL) {
+    if(raiz){
         imprimir_em_ordem(raiz->esquerdo);
         printf("%s\n", raiz->dado);
         imprimir_em_ordem(raiz->direito);
@@ -152,5 +152,4 @@ void liberar_avl(No* avl){
     liberar_avl(avl->direito);
     free(avl->dado);
     free(avl);
-    
 }
