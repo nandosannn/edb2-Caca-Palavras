@@ -11,4 +11,4 @@ void busca_horizontal(char** matriz, int linha, int coluna, No_trie* arvore_trie
 
 void busca_vertical(char** matriz, int linha, int coluna, No_trie* arvore_trie, No** arvore_avl);
 
-void busca_diagonal(char** matriz, int coluna, int linha, No_trie* arvore_trie, No** arvore_avl);
+void busca_diagonal(char** matriz, int linha, int coluna, No_trie* arvore_trie, No** arvore_avl);
