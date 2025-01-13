@@ -8,6 +8,9 @@ typedef struct No_trie{
 }No_trie;
 
 No_trie *criar_no_trie();
+
 void inserir_trie(No_trie *raiz, const char *palavra);
+
 int buscar_trie(No_trie *raiz, const char *palavra);
+
 void liberar_trie(No_trie *raiz);
