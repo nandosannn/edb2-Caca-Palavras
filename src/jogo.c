@@ -10,7 +10,7 @@ void ler_palavras(No_trie *raiz, char *nomeDoArquivo){
     }
 }
 
-void ler_tabuleiro(char *nomeDoArquivo, int linhas, int colunas, char **matriz){
+void ler_tabuleiro(char *nomeDoArquivo, int linhas, int colunas, char **matriz_tabuleiro){
     FILE* arquivo = abrirArquivo(nomeDoArquivo, "r");
 
     if(arquivo){
@@ -20,7 +20,7 @@ void ler_tabuleiro(char *nomeDoArquivo, int linhas, int colunas, char **matriz){
 
         while(fscanf(arquivo, "%c", &letra) == 1){
             if(!isspace(letra) && !isdigit(letra)){
-                matriz[contadorLinha][contadorColuna] = tolower(letra);
+                matriz_tabuleiro[contadorLinha][contadorColuna] = tolower(letra);
                 contadorColuna++;
 
                 if(contadorColuna == colunas){
@@ -36,7 +36,7 @@ void ler_tabuleiro(char *nomeDoArquivo, int linhas, int colunas, char **matriz){
     }
 }
 
-void busca_horizontal(char** matriz, int linha, int coluna, No_trie* arvore_trie, No** arvore_avl){
+void busca_horizontal(char** matriz_tabuleiro, int linha, int coluna, No_trie* arvore_trie, No** arvore_avl){
     char palavra[50];
     int posicao_insercao_caracter = 0;
     int posicao_inicial_palavra = 0;
@@ -47,7 +47,7 @@ void busca_horizontal(char** matriz, int linha, int coluna, No_trie* arvore_trie
            
             for(int j = posicao_inicial_palavra; j < coluna; j++){
 
-                palavra[posicao_insercao_caracter++] = matriz[i][j];
+                palavra[posicao_insercao_caracter++] = matriz_tabuleiro[i][j];
                 palavra[posicao_insercao_caracter] = '\0';
                 int valor = buscar_trie(arvore_trie, palavra);
 
@@ -74,7 +74,7 @@ void busca_horizontal(char** matriz, int linha, int coluna, No_trie* arvore_trie
            
             for (int j = posicao_inicial_palavra; j >= 0; j--){
 
-                palavra[posicao_insercao_caracter++] = matriz[i][j];
+                palavra[posicao_insercao_caracter++] = matriz_tabuleiro[i][j];
                 palavra[posicao_insercao_caracter] = '\0';
                 int valor = buscar_trie(arvore_trie, palavra);
 
@@ -93,7 +93,7 @@ void busca_horizontal(char** matriz, int linha, int coluna, No_trie* arvore_trie
     } 
 }
 
-void busca_vertical(char** matriz, int linha, int coluna, No_trie* arvore_trie, No** arvore_avl){
+void busca_vertical(char** matriz_tabuleiro, int linha, int coluna, No_trie* arvore_trie, No** arvore_avl){
     char palavra[50];
     int posicao_insercao_caracter = 0;
     int posicao_inicial_palavra = 0;
@@ -104,7 +104,7 @@ void busca_vertical(char** matriz, int linha, int coluna, No_trie* arvore_trie, 
            
             for(int j = posicao_inicial_palavra; j < linha; j++){
 
-                palavra[posicao_insercao_caracter++] = matriz[j][i];
+                palavra[posicao_insercao_caracter++] = matriz_tabuleiro[j][i];
                 palavra[posicao_insercao_caracter] = '\0';
                 int valor = buscar_trie(arvore_trie, palavra);
 
@@ -131,7 +131,7 @@ void busca_vertical(char** matriz, int linha, int coluna, No_trie* arvore_trie, 
            
             for (int j = posicao_inicial_palavra; j >= 0; j--){
 
-                palavra[posicao_insercao_caracter++] = matriz[j][i];
+                palavra[posicao_insercao_caracter++] = matriz_tabuleiro[j][i];
                 palavra[posicao_insercao_caracter] = '\0';
                 int valor = buscar_trie(arvore_trie, palavra);
 
@@ -150,7 +150,7 @@ void busca_vertical(char** matriz, int linha, int coluna, No_trie* arvore_trie, 
     } 
 }
 
-void busca_diagonal(char** matriz, int linha, int coluna, No_trie* arvore_trie, No** arvore_avl){
+void busca_diagonal(char** matriz_tabuleiro, int linha, int coluna, No_trie* arvore_trie, No** arvore_avl){
     char palavra[50];
     int posicao_insercao_caracter = 0;
     int posicao_inicial_palavra = 0;
@@ -170,7 +170,7 @@ void busca_diagonal(char** matriz, int linha, int coluna, No_trie* arvore_trie, 
 
             for(int i = posicao_inicial_palavra; i < linha - h; i++){
 
-                palavra[posicao_insercao_caracter++] = matriz[i + h][i];
+                palavra[posicao_insercao_caracter++] = matriz_tabuleiro[i + h][i];
                 palavra[posicao_insercao_caracter] = '\0';
                 int valor = buscar_trie(arvore_trie, palavra);
 
@@ -201,7 +201,7 @@ void busca_diagonal(char** matriz, int linha, int coluna, No_trie* arvore_trie, 
 
             for(int i = posicao_inicial_palavra; i - h >= 0; i--){
 
-                palavra[posicao_insercao_caracter++] = matriz[i][i - h];
+                palavra[posicao_insercao_caracter++] = matriz_tabuleiro[i][i - h];
                 palavra[posicao_insercao_caracter] = '\0';
                 int valor = buscar_trie(arvore_trie, palavra);
 
@@ -232,7 +232,7 @@ void busca_diagonal(char** matriz, int linha, int coluna, No_trie* arvore_trie, 
 
             for(int i = posicao_inicial_palavra; i < coluna - h; i++){
 
-                palavra[posicao_insercao_caracter++] = matriz[i][i + h];
+                palavra[posicao_insercao_caracter++] = matriz_tabuleiro[i][i + h];
                 palavra[posicao_insercao_caracter] = '\0';
                 int valor = buscar_trie(arvore_trie, palavra);
 
@@ -265,7 +265,7 @@ void busca_diagonal(char** matriz, int linha, int coluna, No_trie* arvore_trie, 
 
             for(int i = posicao_inicial_palavra; i - h >= 0; i--){
 
-                palavra[posicao_insercao_caracter++] = matriz[i - h][i];
+                palavra[posicao_insercao_caracter++] = matriz_tabuleiro[i - h][i];
                 palavra[posicao_insercao_caracter] = '\0';
                 int valor = buscar_trie(arvore_trie, palavra);
 
@@ -292,7 +292,7 @@ void busca_diagonal(char** matriz, int linha, int coluna, No_trie* arvore_trie, 
 
             for(int i = posicao_inicial_palavra; i <= h; i++){
 
-                palavra[posicao_insercao_caracter++] = matriz[i][h - i];
+                palavra[posicao_insercao_caracter++] = matriz_tabuleiro[i][h - i];
                 palavra[posicao_insercao_caracter] = '\0';
                 int valor = buscar_trie(arvore_trie, palavra);
 
@@ -318,7 +318,7 @@ void busca_diagonal(char** matriz, int linha, int coluna, No_trie* arvore_trie, 
 
             for(int i = posicao_inicial_palavra; i <= h; i++){
 
-                palavra[posicao_insercao_caracter++] = matriz[h - i][i];
+                palavra[posicao_insercao_caracter++] = matriz_tabuleiro[h - i][i];
                 palavra[posicao_insercao_caracter] = '\0';
                 int valor = buscar_trie(arvore_trie, palavra);
 
@@ -351,7 +351,7 @@ void busca_diagonal(char** matriz, int linha, int coluna, No_trie* arvore_trie, 
 
             for(int i = posicao_inicial_palavra; i >= h; i--){
 
-                palavra[posicao_insercao_caracter++] = matriz[h + ((linha - 1) - i)][i];
+                palavra[posicao_insercao_caracter++] = matriz_tabuleiro[h + ((linha - 1) - i)][i];
                 palavra[posicao_insercao_caracter] = '\0';
                 int valor = buscar_trie(arvore_trie, palavra);
 
@@ -378,7 +378,7 @@ void busca_diagonal(char** matriz, int linha, int coluna, No_trie* arvore_trie, 
 
             for(int i = posicao_inicial_palavra; i >= h; i--){
 
-                palavra[posicao_insercao_caracter++] = matriz[i][h + ((coluna - 1) - i)];
+                palavra[posicao_insercao_caracter++] = matriz_tabuleiro[i][h + ((coluna - 1) - i)];
                 palavra[posicao_insercao_caracter] = '\0';
                 int valor = buscar_trie(arvore_trie, palavra);
 
