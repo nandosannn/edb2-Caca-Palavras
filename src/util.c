@@ -44,10 +44,10 @@ FILE *abrirArquivo(char *nomeDoArquivo, const char *tipoDeAbertura){
     return arquivo;
 }
 
-void alocarMatrizTabuleiro(char ***matriz, int linhas, int colunas){
-    *matriz = (char **)malloc(linhas * sizeof(char *));
+void alocarMatrizTabuleiro(char ***matriz_tabuleiro, int linhas, int colunas){
+    *matriz_tabuleiro = (char **)malloc(linhas * sizeof(char *));
     for (int i = 0; i < linhas; i++) {
-        (*matriz)[i] = (char *)malloc(colunas * sizeof(char));
+        (*matriz_tabuleiro)[i] = (char *)malloc(colunas * sizeof(char));
     }
 }
 
@@ -69,10 +69,10 @@ void lerTamanhoDoTabuleiro(char *nomeDoArquivo, int indices_matriz[]){
     }
 }
 
-void imprimirMatriz(char **matriz, int linhas, int colunas){
+void imprimirMatriz(char **matriz_tabuleiro, int linhas, int colunas){
     for(int i = 0; i < linhas; i++){
         for(int j = 0; j < colunas; j++){
-            printf("%c", matriz[i][j]);
+            printf("%c", matriz_tabuleiro[i][j]);
             printf(" ");
         }
         printf("\n");
